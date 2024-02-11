@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +8,78 @@
     <title>{% block title %}News2in1{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Hind+Madurai:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #F5F5F5; color: #333; font-family: 'Roboto', sans-serif; }
-        .header, .footer { background: #FFF; }
-        a, .btn { color: #007BFF; }
-        /* Add more styles as needed */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1em 2em;
+    display: flex;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0 0 0 20px; /* Adjusted margin to add space between logo and text */
+    color: #024502; /* Changed color to dark green */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin-left: auto; /* Added to push navigation to the right */
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #024502; /* Changed color to dark green */
+}
+
+.hero {
+    background-color: #ffffff;
+    padding: 2em;
+    margin: 2em 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+footer {
+    background-color: #024502; /* Changed color to dark green */
+    color: #ffffff;
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
     </style>
 </head>
 <body>
     <header class="header">
-        <!-- Navigation Menu -->
+        <a href="{% url 'home' %}">
+            <img src="{% static 'images/logo.png' %}" alt="News2in1 Logo" style="height: 50px;">
+        </a>    
+        <h1>News2in1</h1>
+        <!-- Placeholder for navigation. Adjust as necessary -->
+        <h1></h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about_us' %}">About Us</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
