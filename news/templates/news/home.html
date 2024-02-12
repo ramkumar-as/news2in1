@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="articles-container">
+    {% for article in articles %}
+      {% for translation in article.translations.all %}
+        <a href="{{ translation.get_static_path }}" class="article-card-link">
+      <div class="article-card">
+        <div class="article-card-content">
+          <p class="meta">{{ article.publish_date|date:"F d, Y" }}</p>
 
-<main>
-    <section class="hero">
-        <h2>Welcome to News2in1</h2>
-        <p>Your premier source for bilingual news in English and Tamil, bridging communities with comprehensive news coverage.</p>
-    </section>
-</main>
+                <p><strong class="article-title">{{ translation.title_translation }}</strong><strong>{{ article.title }}</strong></p>
+            <p><em>({{ translation.language|title }}: English)</em></p>
+        </div>
+      </div>
 
-<footer>
-    <p>&copy; 2024 News2in1. All rights reserved.</p>
-</footer>
+        {% endfor %}
+
+    {% endfor %}
+</div>
 {% endblock %}
+

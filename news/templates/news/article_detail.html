@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load my_filters %}
+
+{% block content %}
+<div class="article-detail">
+    <h3>{{ language_article.title_translation }} <br>{{ language_article.article.title }}</h3>
+    {% for content in article_contents %}
+    <div class="content-block">
+        {% if translations_map|default_if_none:""|get:content.id %}
+            {{ translations_map|get:content.id|default:"" }} <br>
+        {% endif %}
+        {% if content.content_type == 'text' %}
+            {{ content.content }}
+        {% elif content.content_type == 'media' and content.image %}
+        <img src="{{ content.image.url }}" alt="{{ content.content }}"   class="responsive" loading="lazy">
+        {% endif %}
+        {% if content.content_type == 'external_link' %}
+            {% with video_id=content.external_link|youtube_id %}
+                {% if video_id %}
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                {% else %}
+                    <p>Video link is invalid or not supported.</p>
+                {% endif %}
+            {% endwith %}
+        {% endif %}
+          
+        <p></p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,125 @@
+/* styles.css */
+
+body {
+    font-family: 'Libre Franklin', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f3f3;
+}
+
+header {
+    text-align: center;
+    background-color: #fff;
+    border-bottom: 1px solid #e2e2e2;
+    padding: 10px 10px; /* Reduced padding */
+}
+
+.header-content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 {
+    margin: 0 0 0 10px; /* Keep existing margin */
+    color: #0d350d; /* Or any color you've chosen */
+    font-size: 24px; /* Optionally reduce the font size if needed */
+}
+
+.logo img {
+    height: 40px; /* Reduce the logo size if needed */
+}
+
+nav {
+    border-top: 2px solid #e6f4e6; /* Dark green line, adjust color as needed */
+    padding-top: 10px; /* Adds some space between the line and the nav items */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Adjusted to remove default margin */
+    text-align: center; /* Center-align the nav items */
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #006400; /* Ensuring consistency with the line color */
+    font-size: 16px; /* Optional: adjust based on your design */
+}
+/* Remainder of styles.css unchanged */
+
+
+main {
+    margin: 20px;
+}
+
+footer {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.articles-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.article-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.article-card-content {
+    padding: 20px;
+}
+
+.article-card-content p {
+    margin: 10px 0;
+}
+
+.article-title {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.meta {
+    color: #666;
+    font-size: 0.875rem;
+}
+.article-card-link {
+    text-decoration: none;
+    color: inherit; /* Ensure text color is inherited to match your card design */
+}
+
+.article-card-link:hover .article-card {
+    /* Your hover effect, e.g., changing the box-shadow for visual feedback */
+    box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+}
+.article-content img {
+    max-width: 100%;
+    height: auto;
+}
+img.responsive {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Prevents inline spacing */
+}
+
