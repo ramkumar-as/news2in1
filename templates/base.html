@@ -4,13 +4,16 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- In the <head> section of your base.html -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 <body>
     <header>
         <div class="header-content">
             <a href="{% url 'home' %}" class="logo">
                 <img src="{% static 'images/logo.png' %}" alt="News2in1 Logo" style="height: 50px;">
-            </a>    
+            </a>
             <h1>News2in1.com</h1>
         </div>
         <nav>
