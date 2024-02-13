@@ -11,13 +11,16 @@ def about_us(request):
 def contact(request):
     return render(request, 'news/contact.html')
 
-def home(request):
-    # Filter articles to include only those with visibility set to 'public'
-    articles = Article.objects.filter(visibility='public').order_by('-publish_date')
-    return render(request, 'news/home.html', {
-        'articles': articles,
-    })
 
+def home(request, language=None):
+    if language:
+        # Fetch LanguageArticle instances that match the specified language.
+        language_articles = LanguageArticle.objects.filter(language=language, article__visibility='public').order_by('-article__publish_date').select_related('article')
+    else:
+        # If no language is specified, you might choose a default behavior.
+        language_articles = LanguageArticle.objects.filter(article__visibility='public').order_by('-article__publish_date').select_related('article')
+
+    return render(request, 'news/home.html', {'language_articles': language_articles})
 
 
 def article_detail(request, language, year, month, day, category, slug):

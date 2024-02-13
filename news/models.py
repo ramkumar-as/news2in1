@@ -28,6 +28,7 @@ class Article(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles')
     modified_date = models.DateTimeField(auto_now=True)
     slug = models.SlugField(max_length=255, unique_for_date='publish_date')
+    thumbnail = models.ImageField(upload_to='media/', blank=True, null=True)
 
 
     visibility = models.CharField(
@@ -39,6 +40,13 @@ class Article(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+  
+        if self.thumbnail:
+            img = Image.open(self.thumbnail.path)
+            output_size = (300, 300)  # Desired thumbnail size
+            img.thumbnail(output_size, Image.ANTIALIAS)
+            img.save(self.thumbnail.path)
+                  
     def __str__(self):
         return f"{self.title}"
 

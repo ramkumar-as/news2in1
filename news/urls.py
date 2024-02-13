@@ -8,6 +8,8 @@ urlpatterns = [
     path('about-us/', about_us, name='about_us'),
     path('contact/', contact, name='contact'),
     path('', views.home, name='home'),
+    path('<str:language>/', views.home, name='home_by_language'),  # Add this line
+
     path('<str:language>/<int:year>/<int:month>/<int:day>/<str:category>/<slug:slug>.html', article_detail, name='article_detail'),
     # Other URL patterns...
 

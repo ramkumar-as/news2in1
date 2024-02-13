@@ -5,8 +5,8 @@
 <article class="article-detail" itemscope itemtype="http://schema.org/Article">
     <meta itemprop="datePublished" content="{{ language_article.article.publish_date|date:'Y-m-d' }}">
     <meta itemprop="dateModified" content="{{ language_article.article.modified_date|date:'Y-m-d' }}">
+    <em>{{language_article.article.publish_date|date:"F d, Y" }} </em>
     <h1 itemprop="headline">{{ language_article.title_translation }} <br>{{ language_article.article.title }}</h1>
-    
     <!-- Moved the <p itemprop="articleBody"> outside the for loop -->
     <div itemprop="articleBody">
         {% for content in article_contents %}
