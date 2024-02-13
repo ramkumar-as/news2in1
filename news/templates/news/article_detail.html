@@ -4,17 +4,23 @@
 {% block content %}
 <article class="article-detail" itemscope itemtype="http://schema.org/Article">
     <meta itemprop="datePublished" content="{{ language_article.article.publish_date|date:'Y-m-d' }}">
-    <meta itemprop="dateModified" content="{{ language_article.article.modified_date|date:'Y-m-d' }}" >
+    <meta itemprop="dateModified" content="{{ language_article.article.modified_date|date:'Y-m-d' }}">
     <h1 itemprop="headline">{{ language_article.title_translation }} <br>{{ language_article.article.title }}</h1>
     
-    {% for content in article_contents %}
-    <div class="content-block">
-        {% if content.content_type == 'text' %}
-            <p itemprop="articleBody">{{ content.content }}</p>
-        {% elif content.content_type == 'media' and content.image %}
-            <img src="{{ content.image.url }}" alt="{{ content.content }}" itemprop="image" class="responsive" loading="lazy">
-        {% elif content.content_type == 'external_link' %}
-            {% with video_id=content.external_link|youtube_id %}
+    <!-- Moved the <p itemprop="articleBody"> outside the for loop -->
+    <div itemprop="articleBody">
+        {% for content in article_contents %}
+        <div class="content-block">
+            <p>
+            {% if translations_map|default_if_none:""|get:content.id %}
+                {{ translations_map|get:content.id|default:"" }} <br>
+            {% endif %}
+            {% if content.content_type == 'text' %}
+                {{ content.content }}
+            {% elif content.content_type == 'media' and content.image %}
+                <img src="{{ content.image.url }}" alt="{{ content.content }}" itemprop="image" class="responsive" loading="lazy">
+            {% elif content.content_type == 'external_link' %}
+                {% with video_id=content.external_link|youtube_id %}
                 {% if video_id %}
                     <!-- Assuming the video is a significant part of the article, not supplementary -->
                     <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/VideoObject">
@@ -26,9 +32,11 @@
                 {% else %}
                     <p>Video link is invalid or not supported.</p>
                 {% endif %}
-            {% endwith %}
-        {% endif %}
+                {% endwith %}
+            {% endif %}
+        </p>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </article>
 {% endblock %}
