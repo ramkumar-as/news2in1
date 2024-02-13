@@ -1,22 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="articles-container">
-    {% for article in articles %}
-      {% for translation in article.translations.all %}
-        <a href="{{ translation.get_static_path }}" class="article-card-link">
-      <div class="article-card">
-        <div class="article-card-content">
-          <p class="meta">{{ article.publish_date|date:"F d, Y" }}</p>
-
-                <p><strong class="article-title">{{ translation.title_translation }}</strong><strong>{{ article.title }}</strong></p>
-            <p><em>({{ translation.language|title }}: English)</em></p>
-        </div>
-      </div>
-
-        {% endfor %}
-
+<div class="articles-container" itemscope itemtype="http://schema.org/ItemList">
+  {% for article in articles %}
+    {% for translation in article.translations.all %}
+      <article itemprop="itemListElement" itemscope itemtype="http://schema.org/Article">
+        <!-- Updated to use an <a> tag for navigation -->
+        <a href="{{ translation.get_static_path }}" itemprop="url" class="article-card-link">
+          <div class="article-card">
+            <div class="article-card-content">
+              <meta itemprop="datePublished" content="{{ article.publish_date|date:'Y-m-d' }}">
+              <p class="meta">{{ article.publish_date|date:"F d, Y" }}</p>
+              <p>
+                <strong itemprop="headline" class="article-title">{{ translation.title_translation }}</strong>
+                <strong itemprop="alternativeHeadline">{{ article.title }}</strong>
+              </p>
+              <p><em>({{ translation.language|title }}: English)</em></p>
+            </div>
+          </div>
+        </a>
+      </article>
     {% endfor %}
+  {% endfor %}
 </div>
 {% endblock %}
-

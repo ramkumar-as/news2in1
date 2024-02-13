@@ -2,31 +2,33 @@
 {% load my_filters %}
 
 {% block content %}
-<div class="article-detail">
-    <p class="meta">{{ language_article.article.publish_date|date:"F d, Y" }}</p>
-    <h3>{{ language_article.title_translation }} <br>{{ language_article.article.title }}</h3>
+<article class="article-detail" itemscope itemtype="http://schema.org/Article">
+    <meta itemprop="datePublished" content="{{ language_article.article.publish_date|date:'Y-m-d' }}">
+    <meta itemprop="dateModified" content="{{ language_article.article.modified_date|date:'Y-m-d' }}" >
+    <h1 itemprop="headline">{{ language_article.title_translation }} <br>{{ language_article.article.title }}</h1>
+    
     {% for content in article_contents %}
     <div class="content-block">
-        {% if translations_map|default_if_none:""|get:content.id %}
-            {{ translations_map|get:content.id|default:"" }} <br>
-        {% endif %}
         {% if content.content_type == 'text' %}
-            {{ content.content }}
+            <p itemprop="articleBody">{{ content.content }}</p>
         {% elif content.content_type == 'media' and content.image %}
-        <img src="{{ content.image.url }}" alt="{{ content.content }}"   class="responsive" loading="lazy">
-        {% endif %}
-        {% if content.content_type == 'external_link' %}
+            <img src="{{ content.image.url }}" alt="{{ content.content }}" itemprop="image" class="responsive" loading="lazy">
+        {% elif content.content_type == 'external_link' %}
             {% with video_id=content.external_link|youtube_id %}
                 {% if video_id %}
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <!-- Assuming the video is a significant part of the article, not supplementary -->
+                    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/VideoObject">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen itemprop="contentUrl"></iframe>
+                        <meta itemprop="uploadDate" content="{{ language_article.article.publish_date|date:'Y-m-d' }}">
+                        <!-- Optional: include a name and description for the video -->
+                        <figcaption itemprop="name">Video Description</figcaption>
+                    </figure>
                 {% else %}
                     <p>Video link is invalid or not supported.</p>
                 {% endif %}
             {% endwith %}
         {% endif %}
-          
-        <p></p>
     </div>
     {% endfor %}
-</div>
+</article>
 {% endblock %}
