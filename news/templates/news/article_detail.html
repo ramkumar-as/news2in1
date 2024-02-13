@@ -3,6 +3,7 @@
 
 {% block content %}
 <div class="article-detail">
+    <p class="meta">{{ language_article.article.publish_date|date:"F d, Y" }}</p>
     <h3>{{ language_article.title_translation }} <br>{{ language_article.article.title }}</h3>
     {% for content in article_contents %}
     <div class="content-block">
