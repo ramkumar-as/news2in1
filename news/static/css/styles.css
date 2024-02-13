@@ -15,9 +15,9 @@ header {
 }
 
 .header-content {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: flex;
+    align-items: left;
+    justify-content: left;
 }
 
 header h1 {
@@ -26,7 +26,10 @@ header h1 {
     font-size: 24px; /* Optionally reduce the font size if needed */
 }
 
+
 .logo img {
+    margin-top: 0;
+
     height: 40px; /* Reduce the logo size if needed */
 }
 
@@ -132,3 +135,18 @@ img.responsive {
     }
 }
 
+.header-titles {
+    text-align: left; /* Center-align the title and slogan */
+}
+
+.header-titles h1 {
+    margin-left: 0;
+    margin-bottom: 0; /* Minimize space between the title and the slogan */
+}
+
+.site-slogan {
+    font-size: 16px; /* Adjust font size as needed */
+    color: #666; /* Slogan text color */
+
+    margin-top: 0; /* Adjust space between the title and slogan */
+}

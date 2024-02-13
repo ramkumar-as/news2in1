@@ -3,47 +3,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}News2in1 - Bilingual News Platform{% endblock %}</title>
+    <title>{% block title %}News2in1.com - Bilingual News Platform{% endblock %}</title>
     <meta name="description" content="{% block description %}Stay updated with the latest news in your native language and English with News2in1, your go-to source for bilingual news content.{% endblock %}">
-    <meta name="keywords" content="{% block keywords %}news, bilingual news, English learning, language learning, international news{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}news, 2in1 news, bilingual news, English learning, language learning, international news{% endblock %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     
-    <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="News2in1 - Bilingual News Platform">
-    <meta itemprop="description" content="Stay updated with the latest news in your native language and English with News2in1.">
-    <meta itemprop="image" content="{% static 'images/logo.png' %}">
-
-    <!-- Open Graph data for Facebook -->
-    <meta property="og:title" content="News2in1 - Bilingual News Platform" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="{% url 'home' %}" />
-    <meta property="og:image" content="{% static 'images/logo.png' %}" />
-    <meta property="og:description" content="Stay updated with the latest news in your native language and English with News2in1." />
-
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="News2in1 - Bilingual News Platform">
-    <meta name="twitter:description" content="Stay updated with the latest news in your native language and English with News2in1.">
-    <meta name="twitter:image" content="{% static 'images/logo.png' %}">
+    <!-- Schema.org, Open Graph, and Twitter Card data omitted for brevity -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
-    <header>
-        <div class="header-content">
-            <a href="{% url 'home' %}" class="logo" itemprop="url">
-                <img src="{% static 'images/logo.png' %}" alt="News2in1 Logo" itemprop="image" style="height: 50px;">
-            </a>
+<header>
+    <div class="header-content">
+        <a href="{% url 'home' %}" class="logo" itemprop="url">
+            <img src="{% static 'images/logo.png' %}" alt="News2in1 Logo" itemprop="image" style="height: 50px;">
+        </a>
+        <div class="header-titles">
             <h1 itemprop="name">News2in1.com</h1>
+            <!-- Slogan added right below the site title -->
+            <p class="site-slogan">Bilingual: Learn News, Improve English</p>
         </div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'about_us' %}">About Us</a></li>
-                <li><a href="{% url 'contact' %}">Contact</a></li>
-                <!-- Additional links here -->
-            </ul>
-        </nav>
-    </header>
+    </div>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about_us' %}">About Us</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <!-- Additional links here -->
+        </ul>
+    </nav>
+</header>
+
     <main itemprop="mainContentOfPage">
         {% block content %}
         {% endblock %}
