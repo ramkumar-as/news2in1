@@ -44,9 +44,9 @@ class Article(models.Model):
         if self.thumbnail:
             img = Image.open(self.thumbnail.path)
             output_size = (300, 300)  # Desired thumbnail size
-            img.thumbnail(output_size, Image.ANTIALIAS)
+            img.thumbnail(output_size, Image.ADAPTIVE)
             img.save(self.thumbnail.path)
-                  
+
     def __str__(self):
         return f"{self.title}"
 
