@@ -1,3 +1,4 @@
+from email.policy import default
 from random import choices
 from django.db import models
 from django.contrib.auth.models import User
@@ -24,10 +25,10 @@ VISIBILITY_CHOICES = [
 class Article(models.Model):
     title = models.CharField(max_length=255)
     publish_date = models.DateField()
-    category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
+    category = models.CharField(max_length=100, choices=CATEGORY_CHOICES,default='world')
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles')
     modified_date = models.DateTimeField(auto_now=True)
-    slug = models.SlugField(max_length=255, unique_for_date='publish_date')
+    slug = models.SlugField(max_length=255, unique_for_date='publish_date', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='media/', blank=True, null=True)
 
 
