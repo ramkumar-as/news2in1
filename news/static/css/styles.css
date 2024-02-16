@@ -188,3 +188,9 @@ img.responsive {
     font-size: 1.1375rem;
     line-height: 1.375rem;
 }
+.article-detail {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}

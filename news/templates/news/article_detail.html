@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load my_filters %}
+<!-- move the entire block content to center aligned   -->
+
 
 {% block content %}
 <article class="article-detail" itemscope itemtype="http://schema.org/Article">
@@ -27,7 +29,7 @@
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen itemprop="contentUrl"></iframe>
                         <meta itemprop="uploadDate" content="{{ language_article.article.publish_date|date:'Y-m-d' }}">
                         <!-- Optional: include a name and description for the video -->
-                        <figcaption itemprop="name">Video Description</figcaption>
+                        <figcaption itemprop="name">{{content.content}}</figcaption>
                     </figure>
                 {% else %}
                     <p>Video link is invalid or not supported.</p>

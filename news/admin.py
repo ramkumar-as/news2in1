@@ -9,8 +9,12 @@ class LanguageArticleContentInline(admin.StackedInline):
     model = LanguageArticleContent
     extra = 1
 
+class LanguageArticleInline(admin.TabularInline):
+    model = LanguageArticle
+    extra = 1  # Number of extra forms to display
+
 class ArticleAdmin(admin.ModelAdmin):
-    inlines = [ArticleContentInline]
+    inlines = [LanguageArticleInline]
     list_display = ('title', 'publish_date', 'category', 'created_by')
     search_fields = ('title', 'category')
 
@@ -22,5 +26,5 @@ class ArticleContentAdmin(admin.ModelAdmin):
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(ArticleContent, ArticleContentAdmin)
 # For LanguageArticle and LanguageArticleContent, simple registration may suffice
-admin.site.register(LanguageArticle)
-admin.site.register(LanguageArticleContent)
+#admin.site.register(LanguageArticle)
+#admin.site.register(LanguageArticleContent)
