@@ -186,11 +186,41 @@ img.responsive {
   }
 .content-block {
     font-size: 1.1375rem;
-    line-height: 1.375rem;
+    line-height: 1.575rem;
+
 }
-.article-detail {
+.center-content {
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    padding: 0 15px;
+    box-sizing: border-box;
+    min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+    .center-content {
+        padding: 0 30px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .center-content {
+        padding: 0 60px;
+    }
+}
+
+.responsive-iframe-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%; /* For a 16:9 aspect ratio. Adjust as needed. */
+}
+
+.responsive-iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
