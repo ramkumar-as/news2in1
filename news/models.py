@@ -6,6 +6,9 @@ from django.utils.text import slugify
 from PIL import Image
 from openai import OpenAI
 from news2in1 import settings
+import os
+from openai import OpenAI
+from news2in1 import settings
 
 
 
@@ -27,7 +30,8 @@ VISIBILITY_CHOICES = [
     (DRAFT, 'Draft'),
 ]
 def translate_content(content):
-    client = OpenAI(api_key=settings.OPENAI_API_KEY)
+    api_key = os.environ.get('OPENAI_API_KEY')
+    client = OpenAI(api_key=api_key)
     response = client.chat.completions.create(
         model="gpt-4-0125-preview",  # or another model name
         messages=[{"role": "user", "content": f'Translate the following English text to Tamil: {content}'}]

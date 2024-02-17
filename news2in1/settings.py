@@ -127,4 +127,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-OPENAI_API_KEY = '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'
