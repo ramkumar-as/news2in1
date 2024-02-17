@@ -7,7 +7,6 @@ from PIL import Image
 from openai import OpenAI
 from news2in1 import settings
 
-client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
 
 LANGUAGE_CHOICES = (
@@ -28,6 +27,7 @@ VISIBILITY_CHOICES = [
     (DRAFT, 'Draft'),
 ]
 def translate_content(content):
+    client = OpenAI(api_key=settings.OPENAI_API_KEY)
     response = client.chat.completions.create(
         model="gpt-4-0125-preview",  # or another model name
         messages=[{"role": "user", "content": f'Translate the following English text to Tamil: {content}'}]

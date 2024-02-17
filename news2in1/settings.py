@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-fkpzjl15f)&(@4=8##9if5)h1v7f0de7n%&=okbk)kq!qiw$@d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['www.news2in1.com','127.0.0.1']
 
@@ -127,4 +127,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = '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'
