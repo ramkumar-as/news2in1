@@ -30,7 +30,7 @@ VISIBILITY_CHOICES = [
     (DRAFT, 'Draft'),
 ]
 def translate_content(content):
-    api_key = os.environ.get('OPENAI_API_KEY')
+    api_key =settings.OPENAI_API_KEY
     client = OpenAI(api_key=api_key)
     response = client.chat.completions.create(
         model="gpt-4-0125-preview",  # or another model name
