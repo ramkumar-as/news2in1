@@ -12,13 +12,13 @@ def contact(request):
     return render(request, 'news/contact.html')
 
 
-def home(request, language=None):
+def home(request, language=None, visibility='public'):
     if language:
-        # Fetch LanguageArticle instances that match the specified language.
-        language_articles = LanguageArticle.objects.filter(language=language, article__visibility='public').order_by('-article__publish_date').select_related('article')
+        # Fetch LanguageArticle instances that match the specified language and visibility.
+        language_articles = LanguageArticle.objects.filter(language=language, article__visibility=visibility).order_by('-article__publish_date').select_related('article')
     else:
         # If no language is specified, you might choose a default behavior.
-        language_articles = LanguageArticle.objects.filter(article__visibility='public').order_by('-article__publish_date').select_related('article')
+        language_articles = LanguageArticle.objects.filter(article__visibility=visibility).order_by('-article__publish_date').select_related('article')
 
     return render(request, 'news/home.html', {'language_articles': language_articles})
 

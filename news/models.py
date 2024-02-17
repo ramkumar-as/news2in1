@@ -4,6 +4,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from PIL import Image
+from openai import OpenAI
+from news2in1 import settings
+
+client = OpenAI(api_key=settings.OPENAI_API_KEY)
+
 
 LANGUAGE_CHOICES = (
     ('tamil', 'Tamil'),
@@ -22,6 +27,14 @@ VISIBILITY_CHOICES = [
     (PUBLIC, 'Public'),
     (DRAFT, 'Draft'),
 ]
+def translate_content(content):
+    response = client.chat.completions.create(
+        model="gpt-4-0125-preview",  # or another model name
+        messages=[{"role": "user", "content": f'Translate the following English text to Tamil: {content}'}]
+    )
+    translation = response.choices[0].message.content.strip()
+    return translation
+    
 class Article(models.Model):
     title = models.CharField(max_length=255)
     publish_date = models.DateField()
@@ -30,27 +43,32 @@ class Article(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
     slug = models.SlugField(max_length=255, unique_for_date='publish_date', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='media/', blank=True, null=True)
-
-
+  
     visibility = models.CharField(
         max_length=10,
         choices=VISIBILITY_CHOICES,
         default=DRAFT,
     )
-   
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+        is_new_article = not self.pk  # Check if it is a new article
         super().save(*args, **kwargs)
-  
+
         if self.thumbnail:
             img = Image.open(self.thumbnail.path)
             output_size = (300, 300)  # Desired thumbnail size
             img.thumbnail(output_size, Image.ADAPTIVE)
             img.save(self.thumbnail.path)
 
+        if is_new_article:  
+            translation = translate_content(content=self.title)
+            LanguageArticle.objects.create(article=self, title_translation=translation, language='tamil')
+
     def __str__(self):
         return f"{self.title}"
 
+   
 
 class ArticleContent(models.Model):
     article = models.ForeignKey(Article, related_name='contents', on_delete=models.CASCADE)
@@ -60,6 +78,7 @@ class ArticleContent(models.Model):
     external_link = models.URLField(blank=True, null=True, help_text="Include a YouTube or Instagram link.")
 
     def save(self, *args, **kwargs):
+        is_new_record = not self.pk  # Check if it is a new article
         super().save(*args, **kwargs)
 
         if self.image:
@@ -67,6 +86,12 @@ class ArticleContent(models.Model):
             # Resize the image
             img.thumbnail((800, 800), Image.ADAPTIVE)
             img.save(self.image.path)
+
+        # Translate the content to Tamil and save it in the LanguageArticleContent model
+        # Only if it is a new content    
+        if is_new_record and self.content_type == 'text':    
+            translation = translate_content(content=self.content)
+            LanguageArticleContent.objects.create(article_content=self, text_translation=translation, language='tamil')
 
     def __str__(self):
         return f"{self.content[:50]}..."
