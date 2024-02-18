@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Career</h1>
+<div class="card-deck">
+{% for job in job_openings %}
+   <div class="articles-container">
+    <a href="{{ job.get_static_path }}" itemprop="url" class="article-card-link">
+        <div class="article-card">
+    <div class="article-card-content">
+        <p>
+            <strong >{{ job.title }}</strong>
+        </p>
+        <p>
+            <strong >Location:</strong>
+            {{ job.location }}
+
+          </p>
+        </div>
+        
+        </div>
+    </div>
+{% empty %}
+    <p>No job openings at the moment.</p>
+{% endfor %}
+</div>
+{% endblock %}

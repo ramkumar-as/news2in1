@@ -29,6 +29,11 @@ VISIBILITY_CHOICES = [
     (PUBLIC, 'Public'),
     (DRAFT, 'Draft'),
 ]
+JOB_STATUS_CHOICES = [
+    ('OPEN', 'Open'),
+    ('CLOSED', 'Closed'),
+]
+
 def translate_content(content):
     api_key =settings.OPENAI_API_KEY
     client = OpenAI(api_key=api_key)
@@ -118,3 +123,29 @@ class LanguageArticleContent(models.Model):
 
     def __str__(self):
         return f"{self.text_translation}"
+
+class JobOpening(models.Model):
+
+    title = models.CharField(max_length=200)
+    location = models.CharField(max_length=100)
+    about_company = models.TextField()
+    position_overview = models.TextField()
+    key_responsibilities = models.TextField()
+    qualifications = models.TextField()
+    what_we_offer = models.TextField()
+    application_process = models.TextField()
+    compensation = models.CharField(max_length=200)
+    job_status = models.CharField(max_length=6, choices=JOB_STATUS_CHOICES, default='OPEN')
+    posted_date = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(max_length=200, unique=True, blank=True)
+
+    def get_static_path(self):
+        return f"/career/{self.pk}/{self.slug}.html"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title

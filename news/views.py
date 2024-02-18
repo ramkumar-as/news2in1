@@ -1,9 +1,6 @@
 # Inside your app's views.py file
-from django.http import Http404
-from django.shortcuts import render, get_object_or_404
-from .models import Article, LanguageArticle, LanguageArticleContent, ArticleContent
-from django.shortcuts import render, get_object_or_404
-from news.models import Article
+from django.shortcuts import redirect, render, get_object_or_404
+from .models import Article, JobOpening, LanguageArticle, LanguageArticleContent, ArticleContent
 
 def about_us(request):
     return render(request, 'news/about_us.html')
@@ -11,6 +8,15 @@ def about_us(request):
 def contact(request):
     return render(request, 'news/contact.html')
 
+def career_home(request):
+    job_openings = JobOpening.objects.filter(job_status='OPEN')
+    return render(request, 'news/career_home.html', {'job_openings': job_openings})
+
+def job_detail(request, jobid, slug):
+    if not slug:
+        return redirect('career_home')
+    job = get_object_or_404(JobOpening,id=jobid, slug=slug)
+    return render(request, 'news/job_detail.html', {'job': job})
 
 def home(request, language=None, visibility='public'):
     if language:
@@ -45,3 +51,5 @@ def article_detail(request, language, year, month, day, category, slug):
         'translations_map': translations_map,
         'selected_language': language
     })
+
+
