@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load my_filters %}
 <!-- move the entire block content to center aligned   -->
+{% block title %}{{ language_article.article.title }} - 2win.news{% endblock %}
+
+{% block description %}{{ language_article.title_translation }} - Bilingual News{% endblock %}
 
 
 {% block content %}
