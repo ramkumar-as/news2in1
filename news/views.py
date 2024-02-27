@@ -1,6 +1,7 @@
 # Inside your app's views.py file
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Article, JobOpening, LanguageArticle, LanguageArticleContent, ArticleContent
+from django.http import HttpResponse
 
 def about_us(request):
     return render(request, 'news/about_us.html')
@@ -53,3 +54,6 @@ def article_detail(request, language, year, month, day, category, slug):
     })
 
 
+def robots_txt(request):
+    content = "User-agent: *\nDisallow: /admin/"
+    return HttpResponse(content, content_type='text/plain')
