@@ -9,7 +9,7 @@
           <!-- Thumbnail Image with Overlays -->
           {% if lang_article.article.thumbnail.url %}
           <div class="article-thumbnail" style="position: relative;">
-            <img src="{{ lang_article.article.thumbnail.url }}" alt="{{ lang_article.article.title }} Thumbnail" itemprop="image">
+            <img src="{{ lang_article.article.thumbnail.url }}" alt="{{ lang_article.article.title }}" itemprop="image">
             <!-- Published Date Overlay -->
             <div class="date-overlay">{{ lang_article.article.publish_date|date:"F d, Y" }}</div>
             <!-- Language Overlay -->

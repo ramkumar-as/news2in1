@@ -6,10 +6,12 @@
     <title>{% block title %}2win.news - Bilingual News Platform{% endblock %}</title>
     <meta name="author" content="2win">
     <meta name="description" content="{% block description %}Stay updated with the latest news in your native language and English with 2win.news, your go-to source for bilingual news content.{% endblock %}">
-    <meta name="keywords" content="{% block keywords %}twin news, 2win news, 2in1 news, bilingual news, English learning, language learning, international news{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}twin news, 2win news, 2in1 news, bilingual news, Hear News Learn English{% endblock %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+        
     <!-- Schema.org, Open Graph, and Twitter Card data omitted for brevity -->
 </head>
 <!-- Google tag (gtag.js) -->

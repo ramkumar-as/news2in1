@@ -53,12 +53,14 @@ class Article(models.Model):
     slug = models.SlugField(max_length=255, unique_for_date='publish_date', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='media/', blank=True, null=True)
   
+
+    
     visibility = models.CharField(
         max_length=10,
         choices=VISIBILITY_CHOICES,
         default=DRAFT,
     )
-
+ 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         is_new_article = not self.pk  # Check if it is a new article

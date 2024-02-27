@@ -28,10 +28,12 @@
                     <!-- Assuming the video is a significant part of the article, not supplementary -->
                     <div class="responsive-iframe-container">
                     <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/VideoObject">
-                        <iframe src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen itemprop="contentUrl"></iframe>
-                        <meta itemprop="uploadDate" content="{{ language_article.article.publish_date|date:'Y-m-d' }}">
-                        <!-- Optional: include a name and description for the video -->
-                        <figcaption itemprop="name">{{content.content}}</figcaption>
+                        <iframe src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <meta itemprop="uploadDate" content="{{ language_article.article.modified_date|date:'c' }}">
+                        <meta itemprop="description" content="{{ language_article.title_translation }}{{ language_article.article.title }}">
+                        <meta itemprop="contentUrl" content="https://www.youtube.com/embed/{{ video_id }}">
+                        <meta itemprop="thumbnailUrl" content="{{ language_article.article.thumbnail.url }}">                        <!-- Optional: include a name and description for the video -->
+                        <figcaption itemprop="name">"Watch Bilingual {{ language_article.language | camelcase}}-English News: {{ content.content }}"</figcaption>
                     </figure>
                     </div>
                 {% else %}

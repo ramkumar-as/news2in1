@@ -44,7 +44,7 @@ def article_detail(request, language, year, month, day, category, slug):
 
     # Organize translations to easily map them to their respective ArticleContent
     translations_map = {trans.article_content_id: trans for trans in language_article_contents}
-
+    print(language_article.article.thumbnail.url)
     return render(request, 'news/article_detail.html', {
         'language_article': language_article,
         'article_contents': article_contents,

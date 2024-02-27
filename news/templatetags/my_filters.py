@@ -1,4 +1,5 @@
 # your_app/templatetags/my_filters.py
+import re
 from django import template
 
 register = template.Library()
@@ -17,3 +18,8 @@ def youtube_id(url):
         if match:
             return match.group(1)
     return None
+
+@register.filter
+def camelcase(value):
+    
+    return value.capitalize()
