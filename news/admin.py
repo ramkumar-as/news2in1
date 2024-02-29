@@ -1,24 +1,38 @@
 from django.contrib import admin
 from .models import Article, ArticleContent, JobOpening, LanguageArticle, LanguageArticleContent
+from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 
-class ArticleContentInline(admin.StackedInline):
-    model = ArticleContent
-    extra = 1  # Number of empty forms to display
 
-class LanguageArticleContentInline(admin.StackedInline):
+
+class LanguageArticleContentInline(NestedStackedInline):
     model = LanguageArticleContent
     extra = 1
+    fk_name = 'article_content'  # Adjust based on your model's ForeignKey field
+
+class ArticleContentInline(NestedStackedInline):
+
+    model = ArticleContent
+    extra = 1
+    inlines = [LanguageArticleContentInline]
 
 class LanguageArticleInline(admin.TabularInline):
+    
     model = LanguageArticle
     extra = 1  # Number of extra forms to display
 
-class ArticleAdmin(admin.ModelAdmin):
-    inlines = [LanguageArticleInline]
+class ArticleAdmin(NestedModelAdmin):
+    class Media:
+        css = {
+            "all": (    
+                "admin/css/forms.css",
+            )
+        }
+    inlines = [ArticleContentInline]
     list_display = ('title', 'publish_date', 'category', 'created_by')
     search_fields = ('title', 'category')
 
 class ArticleContentAdmin(admin.ModelAdmin):
+
     inlines = [LanguageArticleContentInline]
     list_display = ('article', 'content_type')
     search_fields = ('article__title',)
