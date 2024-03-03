@@ -72,9 +72,9 @@ class Article(models.Model):
             img.thumbnail(output_size, Image.ADAPTIVE)
             img.save(self.thumbnail.path)
 
-        if is_new_article:  
-            translation = translate_content(content=self.title)
-            LanguageArticle.objects.create(article=self, title_translation=translation, language='tamil')
+        # if is_new_article:  
+        #     translation = translate_content(content=self.title)
+        #     LanguageArticle.objects.create(article=self, title_translation=translation, language='tamil')
 
     def __str__(self):
         return f"{self.title}"

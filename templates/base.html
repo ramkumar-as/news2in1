@@ -1,4 +1,5 @@
 {% load static %}
+{% load my_filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,8 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
-        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <!-- Schema.org, Open Graph, and Twitter Card data omitted for brevity -->
 </head>
 <!-- Google tag (gtag.js) -->
@@ -22,9 +24,29 @@
   gtag('js', new Date());
 
   gtag('config', 'G-XTQH60HPPC');
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const editionBtn = document.getElementById('selected-edition');
+    const editionDropdown = document.getElementById('edition-dropdown');
+
+    // Toggle the dropdown
+    editionBtn.onclick = function() {
+        editionDropdown.style.display = editionDropdown.style.display === 'block' ? 'none' : 'block';
+    };
+
+    // Close the dropdown if clicked outside
+    window.onclick = function(event) {
+        if (!event.target.matches('.edition-btn')) {
+            if (editionDropdown.style.display === 'block') {
+                editionDropdown.style.display = 'none';
+            }
+        }
+    };
+});
 </script>
 <body itemscope itemtype="http://schema.org/WebPage">
 <header>
+
     <div class="header-content">
         <a href="{% url 'home' %}" class="logo" itemprop="url">
             <img src="{% static 'images/logo.png' %}" alt="2win.news Logo" itemprop="image" style="height: 50px;">
@@ -35,15 +57,29 @@
             <p class="site-slogan">Bilingual: Learn News, Improve English</p>
         </div>
     </div>
-    <nav>
+    <nav itemscope itemtype="http://schema.org/SiteNavigationElement">
+
         <ul class="nav-links">
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'about_us' %}">About Us</a></li>
-            <li><a href="{% url 'contact' %}">Contact</a></li>
-            <li><a href="{% url 'career_home' %}">Career</a></li>
-            <!-- Additional links here -->
+            <li>
+                <div class="edition-selection">
+                    {% if selected_language %}
+                        <button id="selected-edition" class="edition-btn">{{ selected_language | camelcase }}-English <i class="fas fa-caret-down"></i></button>
+                    {% else %}
+                        <button id="selected-edition" class="edition-btn">Select Edition <i class="fas fa-caret-down"></i></button>
+                    {% endif %}
+                    <div id="edition-dropdown" class="edition-dropdown-content">
+                        <a href="/tamil" data-edition="tamil" itemprop="url">Tamil-English</a>
+                        <a href="/hindi" data-edition="english" itemprop="url">Hindi-English</a>
+                    </div>
+                </div>
+            </li>
+            <li><a href="{% url 'home' %}" itemprop="url">Home</a></li>
+            <li><a href="{% url 'about_us' %}" itemprop="url">About Us</a></li>
+            <li><a href="{% url 'contact' %}" itemprop="url">Contact</a></li>
+            <li><a href="{% url 'career_home' %}" itemprop="url">Career</a></li>
+
         </ul>
-    </nav>
+    </nav>    
 </header>
 
     <main itemprop="mainContentOfPage">

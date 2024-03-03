@@ -27,7 +27,7 @@ def home(request, language=None, visibility='public'):
         # If no language is specified, you might choose a default behavior.
         language_articles = LanguageArticle.objects.filter(article__visibility=visibility).order_by('-article__publish_date').select_related('article')
 
-    return render(request, 'news/home.html', {'language_articles': language_articles})
+    return render(request, 'news/home.html', {'language_articles': language_articles, 'selected_language': language})
 
 
 def article_detail(request, language, year, month, day, category, slug):

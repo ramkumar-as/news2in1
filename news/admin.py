@@ -46,6 +46,6 @@ class JobOpeningAdmin(admin.ModelAdmin):
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(ArticleContent, ArticleContentAdmin)
 # For LanguageArticle and LanguageArticleContent, simple registration may suffice
-#admin.site.register(LanguageArticle)
+admin.site.register(LanguageArticle)
 #admin.site.register(LanguageArticleContent)
 admin.site.register(JobOpening, JobOpeningAdmin)
